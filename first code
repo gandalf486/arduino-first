@@ -1,0 +1,39 @@
+  int buzzerpin=12;
+  int sensorpin=10;
+  int buttonpin=3;
+  float distance;
+  float normal_distance;
+  
+  void setup() {
+  Serial.begin(9600);
+  pinMode(buzzerpin,OUTPUT);
+  pinMode(buttonpin,INPUT);
+  pinMode(sensorpin,INPUT);
+  normal_distance=(pulseIn(12,HIGH)*0.034/2);
+
+}
+
+void loop() {
+  digitalWrite(buzzerpin,HIGH);
+  delay(1000);
+  digitalWrite(buzzerpin,LOW);
+  int flag=1;
+  float time=pulseIn(sensorpin,HIGH);
+  distance=(time*0.0343)/2;
+  if(distance<=normal_distance||distance>=normal_distance)
+  {
+    flag=0;
+  }
+  if(flag==1)
+  {
+    noTone(buzzerpin);
+  }
+  else
+  {
+    do
+    {
+      tone(buzzerpin,1000);
+    }while(buttonpin!=HIGH);
+   
+  }
+} 
